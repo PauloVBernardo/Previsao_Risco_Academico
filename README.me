@@ -6,10 +6,64 @@ markdown
 ![Pandas](img.shields.io)
 ![Matplotlib](img.shields.io)
 
+## Pipeline do Projeto
+
+1. Geração de dados sintéticos acadêmicos
+2. Análise exploratória e engenharia de atributos
+3. Treinamento e avaliação de modelos de classificação
+4. Geração de score de risco e visualização gerencial
+
 ## 📌 Visão Geral
 Este projeto desenvolve um modelo de inteligência artificial para identificar alunos em situação de risco acadêmico. Utilizando dados de notas e frequência ao longo dos quatro bimestres, o sistema classifica os estudantes entre **Aprovado**, **Recuperação** ou **Reprovado**.
 
 O objetivo central é permitir que instituições de ensino realizem **intervenções pedagógicas precoces**, identificando padrões de queda de desempenho antes do fechamento do ano letivo.
+
+Este projeto cria um sistema de previsão de risco acadêmico permitindo que a escola planeje intervenções acadêmicas em grupos de risco ainda durante o ano letivo.
+
+# 1 - Contexto
+O sucesso nas taxas de aprovação de alunos em uma escola podem ser melhorados ainda durante o ano letivo se a escola destinar intervenções pedagógica convenientes para cada grupo de alunos. Ao invés de esperar o fim do ano para somente medir as taxas de aprovação e planejar mudanças para o ano seguinte, ao se fazer uso de um sistema de previsão de aprovação, a escola pode ativamente melhorar seus índices ainda durante o ano letivo.
+
+Este projeto propõe um modelo de Machine Learning que:
+- Utiliza dados acadêmicos dos três primeiros bimestres;
+- Prevê a situação final do aluno;
+- Apoia a tomada de decisão pedagógica baseada em dados;
+
+O sistema pode ser utilizado por coordenações pedagógicas para:
+- Direcionar reforço escolar;
+- Avaliar políticas de avaliação (provas x trabalhos);
+- Reduzir taxas de reprovação;
+
+2 - Objetivo
+Este projeto tem como objetivo desenvolver um sistema de previsão de risco acadêmico capaz de identificar, ainda durante o ano letivo, alunos com maior probabilidade de:
+
+🟢 Aprovação;
+
+🟡 Recuperação;
+
+🔴 Reprovação;
+
+A previsão é realizada ao final do 3º bimestre, permitindo que a escola implemente intervenções pedagógicas no último período do ano.
+
+3 - Dados
+Para este projeto os dados foram gerados de forma sintética para fins educacionais e demonstrar o método de previsão de risco acadêmico. Os dados estão estruturados de acordo com o sistema simples pensado para uma escola:
+
+3.1 Estrutura de Avaliação Escolar
+O ano letivo é dividido em quatro bimestres.
+
+Para cada bimestre, o aluno possui:
+
+1 prova (valor máximo: 8 pontos)
+2 trabalhos (valor máximo: 1 ponto cada)
+Frequência percentual no bimestre
+Nota máxima por bimestre: 10 pontos Nota final: Média das notas dos quatro bimestres. Frequência final: Percentual total da frequência ao longo do ano.
+
+Ao final do quarto bimestre, de acordo com as regras abaixo, o aluno estará em um dos três status de aprovação:
+
+Classe	Condição
+Aprovado	nota_final ≥ 7 e frequência ≥ 75%
+Recuperação	5 ≤ nota_final < 7 e frequência ≥ 75%
+Reprovado	nota_final < 5 ou frequência < 75%
+
 
 ## 🛠️ Desafios Técnicos & Soluções
 
