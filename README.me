@@ -1,0 +1,56 @@
+markdown
+# 🎓 Previsão de Risco Acadêmico com Machine Learning
+
+![Python](img.shields.io)
+![Scikit-Learn](img.shields.io)
+![Pandas](img.shields.io)
+![Matplotlib](img.shields.io)
+
+## 📌 Visão Geral
+Este projeto desenvolve um modelo de inteligência artificial para identificar alunos em situação de risco acadêmico. Utilizando dados de notas e frequência ao longo dos quatro bimestres, o sistema classifica os estudantes entre **Aprovado**, **Recuperação** ou **Reprovado**.
+
+O objetivo central é permitir que instituições de ensino realizem **intervenções pedagógicas precoces**, identificando padrões de queda de desempenho antes do fechamento do ano letivo.
+
+## 🛠️ Desafios Técnicos & Soluções
+
+*   **Engenharia de Atributos (Feature Engineering):** Foram criadas variáveis de média acumulada (Ex: `media_nota_b1_b3`) e de tendência (`slope_nota`), que se mostraram mais eficazes na previsão do que as notas isoladas.
+*   **Tratamento de Desbalanceamento:** O dataset apresentava uma concentração de 87% em uma das classes. Foi utilizado o parâmetro `class_weight='balanced'` nos modelos para garantir que os alunos em risco (minoria) não fossem negligenciados pelo algoritmo.
+*   **Convergência de Modelos:** Para a Regressão Logística, foi necessário aplicar o `StandardScaler` e ajustar o limite de iterações para `10.000` para garantir a estabilidade estatística do modelo.
+
+## 📊 Resultados e Performance
+
+Foram comparados os modelos de **Regressão Logística** e **Random Forest**, utilizando **Validação Cruzada (K-Fold)** para garantir a robustez dos resultados.
+
+📊 Resultados Principais
+O modelo final de Regressão Logística apresentou uma estabilidade superior na validação cruzada, com um F1-Score Macro médio de 0.71.
+Importância das Variáveis (Feature Importance)
+A análise revelou que variáveis criadas durante o processo de Feature Engineering, como a média acumulada de frequência e notas, possuem maior peso na decisão do que notas isoladas de provas.
+Análise Crítica
+Um ponto de destaque do projeto foi a identificação de que, embora a frequência seja um forte preditor estatístico (devido às regras de corte de 75%), ela apresentou baixa correlação direta (0.05) com o aumento das notas no dataset sintético. Isso demonstra que a presença é um requisito legal de aprovação, mas não necessariamente a causa direta de melhor desempenho acadêmico nestes dados.
+
+Modelo	F1-Score (Macro)	Acurácia
+Regressão Logística	0.715	0.70
+Random Forest	0.641	0.70
+🔍 Insights de Negócio
+Variáveis Críticas: A análise de Feature Importance revelou que a frequência acumulada e as notas do 3º bimestre são os maiores indicadores de risco.
+Causalidade vs Correlação: Uma análise detalhada mostrou que, embora a frequência seja um requisito legal (75%), ela possui baixa correlação direta com o aumento da nota neste dataset, servindo mais como um "filtro de status" do que um impulsionador de desempenho.
+
+📂 Estrutura do Repositório
+
+├── data/               # Datasets utilizados
+├── notebooks/          # Jupyter Notebook com a análise completa
+├── requirements.txt    # Bibliotecas necessárias para rodar o projeto
+└── README.md           # Documentação do projeto
+
+
+🚀 Como Executar
+1 - Clone o repositório: 
+git clone github.com
+
+2 - Instale as dependências: 
+pip install -r requirements.txt
+
+3 - Execute o Jupyter Notebook.
+
+✒️ Autor
+Paulo Vitor dos Santos Bernardo - [LinkedIn](https://www.linkedin.com/in/paulo-vitor-bernardo-09249931) 
