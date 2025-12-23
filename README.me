@@ -1,110 +1,190 @@
-markdown
-# 🎓 Previsão de Risco Acadêmico com Machine Learning
+# 🎓 Previsão de Risco Acadêmico em Matemática com Machine Learning
 
-![Python](img.shields.io)
-![Scikit-Learn](img.shields.io)
-![Pandas](img.shields.io)
-![Matplotlib](img.shields.io)
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-ML-orange)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-green)
+![PowerBI](https://img.shields.io/badge/Power%20BI-Dashboard-yellow)
 
-## Pipeline do Projeto
+## 📌 Visão Geral
+
+Este projeto desenvolve um sistema de **previsão de risco acadêmico** aplicado à
+disciplina de **Matemática**, tradicionalmente associada a altos índices de retenção
+em instituições de ensino.
+
+Utilizando dados de **notas e frequência ao longo dos quatro bimestres**, o sistema
+classifica os estudantes em três categorias finais:
+
+- 🟢 **Aprovado**
+- 🟡 **Recuperação**
+- 🔴 **Reprovado**
+
+O diferencial do projeto está na **antecipação do risco**: a previsão é realizada
+ao final do **3º bimestre**, permitindo que a escola atue preventivamente no último
+período do ano letivo por meio de **intervenções pedagógicas orientadas por dados**.
+
+---
+
+## 🔄 Pipeline do Projeto
 
 1. Geração de dados sintéticos acadêmicos
 2. Análise exploratória e engenharia de atributos
 3. Treinamento e avaliação de modelos de classificação
 4. Geração de score de risco e visualização gerencial
 
-## 📌 Visão Geral
-Este projeto desenvolve um modelo de inteligência artificial para identificar alunos em situação de risco acadêmico. Utilizando dados de notas e frequência ao longo dos quatro bimestres, o sistema classifica os estudantes entre **Aprovado**, **Recuperação** ou **Reprovado**.
+---
 
-O objetivo central é permitir que instituições de ensino realizem **intervenções pedagógicas precoces**, identificando padrões de queda de desempenho antes do fechamento do ano letivo.
+## 1️⃣ Contexto
 
-Este projeto cria um sistema de previsão de risco acadêmico permitindo que a escola planeje intervenções acadêmicas em grupos de risco ainda durante o ano letivo.
-
-# 1 - Contexto
-O sucesso nas taxas de aprovação de alunos em uma escola podem ser melhorados ainda durante o ano letivo se a escola destinar intervenções pedagógica convenientes para cada grupo de alunos. Ao invés de esperar o fim do ano para somente medir as taxas de aprovação e planejar mudanças para o ano seguinte, ao se fazer uso de um sistema de previsão de aprovação, a escola pode ativamente melhorar seus índices ainda durante o ano letivo.
+As taxas de aprovação escolar podem ser significativamente melhoradas quando a
+instituição identifica dificuldades **ainda durante o ano letivo**, em vez de agir
+apenas após o fechamento das notas finais.
 
 Este projeto propõe um modelo de Machine Learning que:
-- Utiliza dados acadêmicos dos três primeiros bimestres;
-- Prevê a situação final do aluno;
-- Apoia a tomada de decisão pedagógica baseada em dados;
+- Utiliza dados acadêmicos dos **três primeiros bimestres**;
+- Prevê a situação final do aluno em Matemática;
+- Apoia a tomada de decisão pedagógica baseada em dados.
 
 O sistema pode ser utilizado por coordenações pedagógicas para:
 - Direcionar reforço escolar;
 - Avaliar políticas de avaliação (provas x trabalhos);
-- Reduzir taxas de reprovação;
+- Reduzir taxas de reprovação em disciplinas críticas.
 
-2 - Objetivo
-Este projeto tem como objetivo desenvolver um sistema de previsão de risco acadêmico capaz de identificar, ainda durante o ano letivo, alunos com maior probabilidade de:
+---
 
-🟢 Aprovação;
+## 2️⃣ Objetivo
 
-🟡 Recuperação;
+Desenvolver um sistema de previsão de risco acadêmico capaz de identificar,
+ao final do **3º bimestre**, alunos com maior probabilidade de:
 
-🔴 Reprovação;
+- 🟢 Aprovação
+- 🟡 Recuperação
+- 🔴 Reprovação
 
-A previsão é realizada ao final do 3º bimestre, permitindo que a escola implemente intervenções pedagógicas no último período do ano.
+Permitindo a implementação de **ações pedagógicas direcionadas** no último
+bimestre do ano letivo.
 
-3 - Dados
-Para este projeto os dados foram gerados de forma sintética para fins educacionais e demonstrar o método de previsão de risco acadêmico. Os dados estão estruturados de acordo com o sistema simples pensado para uma escola:
+---
 
-3.1 Estrutura de Avaliação Escolar
-O ano letivo é dividido em quatro bimestres.
+## 3️⃣ Dados
 
-Para cada bimestre, o aluno possui:
+Os dados utilizados são **sintéticos**, gerados para fins educacionais e de
+demonstração do pipeline completo de Data Science aplicado ao contexto escolar.
 
-1 prova (valor máximo: 8 pontos)
-2 trabalhos (valor máximo: 1 ponto cada)
-Frequência percentual no bimestre
-Nota máxima por bimestre: 10 pontos Nota final: Média das notas dos quatro bimestres. Frequência final: Percentual total da frequência ao longo do ano.
+### 3.1 Estrutura de Avaliação (Matemática)
 
-Ao final do quarto bimestre, de acordo com as regras abaixo, o aluno estará em um dos três status de aprovação:
+O ano letivo é dividido em **quatro bimestres**.  
+Em cada bimestre, o aluno possui:
 
-Classe	Condição
-Aprovado	nota_final ≥ 7 e frequência ≥ 75%
-Recuperação	5 ≤ nota_final < 7 e frequência ≥ 75%
-Reprovado	nota_final < 5 ou frequência < 75%
+- 1 prova (valor máximo: 8 pontos)
+- 2 trabalhos (valor máximo: 1 ponto cada)
+- Frequência percentual no bimestre
 
+**Nota máxima por bimestre:** 10 pontos  
+**Nota final:** média das quatro notas bimestrais  
+**Frequência final:** percentual total de presença no ano
+
+### 3.2 Regras de Aprovação
+
+| Classe        | Condição                                      |
+|---------------|-----------------------------------------------|
+| Aprovado      | nota_final ≥ 7 **e** frequência ≥ 75%         |
+| Recuperação   | 5 ≤ nota_final < 7 **e** frequência ≥ 75%     |
+| Reprovado     | nota_final < 5 **ou** frequência < 75%        |
+
+---
 
 ## 🛠️ Desafios Técnicos & Soluções
 
-*   **Engenharia de Atributos (Feature Engineering):** Foram criadas variáveis de média acumulada (Ex: `media_nota_b1_b3`) e de tendência (`slope_nota`), que se mostraram mais eficazes na previsão do que as notas isoladas.
-*   **Tratamento de Desbalanceamento:** O dataset apresentava uma concentração de 87% em uma das classes. Foi utilizado o parâmetro `class_weight='balanced'` nos modelos para garantir que os alunos em risco (minoria) não fossem negligenciados pelo algoritmo.
-*   **Convergência de Modelos:** Para a Regressão Logística, foi necessário aplicar o `StandardScaler` e ajustar o limite de iterações para `10.000` para garantir a estabilidade estatística do modelo.
+- **Engenharia de Atributos:** criação de variáveis agregadas como
+  `media_nota_b1_b3`, `media_freq_b1_b3` e `slope_nota`, que se mostraram mais
+  informativas do que notas isoladas.
+- **Desbalanceamento de Classes:** utilização de `class_weight='balanced'`
+  para garantir que alunos em risco fossem adequadamente considerados.
+- **Convergência de Modelos:** aplicação de `StandardScaler` e ajuste do
+  `max_iter` na Regressão Logística para garantir estabilidade.
+
+---
 
 ## 📊 Resultados e Performance
 
-Foram comparados os modelos de **Regressão Logística** e **Random Forest**, utilizando **Validação Cruzada (K-Fold)** para garantir a robustez dos resultados.
+Foram comparados os modelos de **Regressão Logística** e **Random Forest**,
+avaliados por meio de **Validação Cruzada (K-Fold)**.
 
-📊 Resultados Principais
-O modelo final de Regressão Logística apresentou uma estabilidade superior na validação cruzada, com um F1-Score Macro médio de 0.71.
-Importância das Variáveis (Feature Importance)
-A análise revelou que variáveis criadas durante o processo de Feature Engineering, como a média acumulada de frequência e notas, possuem maior peso na decisão do que notas isoladas de provas.
-Análise Crítica
-Um ponto de destaque do projeto foi a identificação de que, embora a frequência seja um forte preditor estatístico (devido às regras de corte de 75%), ela apresentou baixa correlação direta (0.05) com o aumento das notas no dataset sintético. Isso demonstra que a presença é um requisito legal de aprovação, mas não necessariamente a causa direta de melhor desempenho acadêmico nestes dados.
+| Modelo              | F1-Score (Macro) | Acurácia |
+|---------------------|------------------|----------|
+| Regressão Logística | 0.71             | 0.70     |
+| Random Forest       | 0.64             | 0.70     |
 
-Modelo	F1-Score (Macro)	Acurácia
-Regressão Logística	0.715	0.70
-Random Forest	0.641	0.70
-🔍 Insights de Negócio
-Variáveis Críticas: A análise de Feature Importance revelou que a frequência acumulada e as notas do 3º bimestre são os maiores indicadores de risco.
-Causalidade vs Correlação: Uma análise detalhada mostrou que, embora a frequência seja um requisito legal (75%), ela possui baixa correlação direta com o aumento da nota neste dataset, servindo mais como um "filtro de status" do que um impulsionador de desempenho.
+### Principais Insights
 
-📂 Estrutura do Repositório
+- Variáveis agregadas de **frequência e média de notas** foram os principais
+  preditores de risco.
+- A frequência apresentou alta importância no modelo por ser um **critério
+  institucional excludente**, apesar de possuir **baixa correlação direta (0.05)**
+  com as notas no dataset sintético.
+- O modelo aprende regras de aprovação, não relações pedagógicas causais —
+  limitação reconhecida e documentada.
 
-├── data/               # Datasets utilizados
-├── notebooks/          # Jupyter Notebook com a análise completa
-├── requirements.txt    # Bibliotecas necessárias para rodar o projeto
-└── README.md           # Documentação do projeto
+---
+
+## 📈 Score de Risco e Dashboard
+
+O modelo final gera um **score de risco acadêmico por aluno**, permitindo a
+segmentação em **Baixo**, **Moderado** e **Alto Risco**.
+
+Devido a limitações de compartilhamento do Power BI Service na versão gratuita,
+o dashboard é disponibilizado em **formato PDF** neste repositório.
+
+📄 **Dashboard (PDF):**  
+`dashboard/risco_academico_dashboard.pdf`
+
+O dashboard foi desenvolvido para apoiar a coordenação pedagógica na:
+- Identificação de alunos prioritários;
+- Análise de frequência e desempenho;
+- Planejamento de intervenções acadêmicas.
+
+---
+
+## 📂 Estrutura do Repositório
+
+```text
+student-risk-prediction/
+│
+├── README.md
+│
+├── data/
+│   ├── raw/
+│   │   └── dados_academicos_bimestrais.csv
+│   └── processed/
+│       ├── dados_modelo_b1_b3.csv
+│       └── dados_dashboard_risco.csv
+│
+├── notebooks/
+│   ├── 01_data_generation.ipynb
+│   ├── 02_eda_and_feature_engineering.ipynb
+│   ├── 03_modeling_and_evaluation.ipynb
+│   └── 04_risk_scoring_and_outputs.ipynb
+│
+├── dashboard/
+│   └── risco_academico_dashboard.pdf
+│
+└── requirements.txt
+
+## 🚀 Como Executar
+
+### Clone o repositório:
+
+git clone https://github.com/seu_usuario/student-risk-prediction
 
 
-🚀 Como Executar
-1 - Clone o repositório: 
-git clone github.com
+### Instale as dependências:
 
-2 - Instale as dependências: 
 pip install -r requirements.txt
 
-3 - Execute o Jupyter Notebook.
 
-✒️ Autor
-Paulo Vitor dos Santos Bernardo - [LinkedIn](https://www.linkedin.com/in/paulo-vitor-bernardo-09249931) 
+### Execute os notebooks na ordem numérica.
+
+# ✒️ Autor
+
+Paulo Vitor dos Santos Bernardo
+🔗 LinkedIn
