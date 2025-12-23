@@ -169,6 +169,7 @@ student-risk-prediction/
 │   └── risco_academico_dashboard.pdf
 │
 └── requirements.txt
+```
 
 ## 🚀 Como Executar
 
