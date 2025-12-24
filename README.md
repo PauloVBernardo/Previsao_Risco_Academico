@@ -79,9 +79,11 @@ Os dados utilizados são sintéticos, gerados para fins educacionais e de demons
 | Variável | Descrição | Tipo |
 | :--- | :--- | :--- |
 | `id_aluno` | Identificador único do estudante | Inteiro |
-| `frequencia` | Percentual de presença nas aulas (0-100) | Float |
+| 'serie' | Série ao qual o aluno pertence | Inteiro |
+| 'idade' | Idade do aluno | Inteiro |
+| `freq_b1', 'freq_b2', 'freq_b3', 'freq_b4` | Percentual de presença nas aulas por bimestre(0-100) | Float |
 | `nota_b1`, `nota_b2`, `nota_b3`, `nota_b4` | Notas dos bimestres | Float |
-| `nivel_socioeconomico` | Classificação da renda familiar (1 a 5) | Categórico |
+| 'trab1_b1' e 'trab2_b1' até 'b4' | Notas dos trabalhos aplicados por bimestre | Float |
 | `risco_reprovacao` | Target: 1 para alto risco, 0 para baixo risco | Binário |
 
 ---
@@ -175,4 +177,4 @@ Implementar versão interativa do dashboard em Power BI Service.
 ## 📬 Contato
 👤 Autor: Paulo Vitor dos Santos Bernardo
 📧 Email: pauloviti@gmail.com
-🔗 [LinkedIn] (www.linkedin.com/in/paulo-vitor-bernardo)
+🔗 LinkedIn: www.linkedin.com/in/paulo-vitor-bernardo
