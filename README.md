@@ -76,20 +76,37 @@ Os dados utilizados são sintéticos, gerados para fins educacionais e de demons
 | Reprovado     | nota_final < 5 **ou** frequência < 75%        |
 
 ### Dicionário de Dados
+
+#### 🔹 Variáveis Originais
 | Variável | Descrição | Tipo |
 | :--- | :--- | :--- |
 | `id_aluno` | Identificador único do estudante | Inteiro |
-| 'serie' | Série ao qual o aluno pertence | Inteiro |
-| 'idade' | Idade do aluno | Inteiro |
-| `freq_b1', 'freq_b2', 'freq_b3', 'freq_b4` | Percentual de presença nas aulas por bimestre(0-100) | Float |
-| `nota_b1`, `nota_b2`, `nota_b3`, `nota_b4` | Notas dos bimestres | Float |
-| 'trab1_b1' e 'trab2_b1' até 'b4' | Notas dos trabalhos aplicados por bimestre | Float |
-| `risco_reprovacao` | Target: 1 para alto risco, 0 para baixo risco | Binário |
+| `serie` | Série ao qual o aluno pertence | Inteiro |
+| `idade` | Idade do aluno | Inteiro |
+| `prova_b1`, `prova_b2`, `prova_b3`, `prova_b4` | Nota da prova de cada bimestre (máx: 8 pontos) | Float |
+| `trab1_b1`, `trab2_b1`, ..., `trab1_b4`, `trab2_b4` | Notas dos dois trabalhos por bimestre (máx: 1 ponto cada) | Float |
+| `freq_b1`, `freq_b2`, `freq_b3`, `freq_b4` | Frequência percentual por bimestre (0–100%) | Float |
+| `nota_b1`, `nota_b2`, `nota_b3`, `nota_b4` | Nota total por bimestre (prova + trabalhos) | Float |
+| `nota_final` | Média das quatro notas bimestrais | Float |
+| `frequencia_final` | Média da frequência anual | Float |
+| `resultado_final` | Classificação final do aluno: Aprovado, Recuperação ou Reprovado | Texto |
+
+#### 🔹 Variáveis Derivadas (Engenharia de Atributos)
+| Variável | Descrição | Tipo |
+| :--- | :--- | :--- |
+| `media_no` | Média das notas dos bimestres 1 a 3 | Float |
+| `media_fre` | Média da frequência dos bimestres 1 a 3 | Float |
+| `slope_nota` | Tendência de evolução das notas ao longo dos bimestres | Float |
+| `var_nota` | Variância das notas nos bimestres 1 a 3 | Float |
+| `prob_repr`, `prob_recu`, `prob_apr` | Probabilidade predita de reprovação, recuperação ou aprovação | Float |
+| `score_risc` | Score de risco acadêmico (0–100) | Float |
+| `nivel_risc` | Nível de risco categorizado: Baixo, Moderado ou Alto Risco | Texto |
+
 
 ---
 
 ## 4️⃣ Engenharia de Atributos e Desafios Técnicos
-- Criação de variáveis agregadas como `media_nota_b1_b3` e `media_freq_b1_b3`, mais informativas que notas isoladas.  
+- Criação de variáveis agregadas como `media_nota_b1_b3` e `media_freq_b1_b3`, as quais foram mais informativas que notas isoladas.  
 - Desbalanceamento de classes tratado com `class_weight='balanced'`.  
 - Ajuste de hiperparâmetros (ex.: `max_iter` na Regressão Logística) para garantir convergência.  
 
@@ -103,21 +120,51 @@ Foram comparados os modelos de Regressão Logística e Random Forest, avaliados 
 | Regressão Logística | 0.69             | 0.70     |
 | Random Forest       | 0.66             | 0.72     |
 
+Os resultados mostram que ambos os modelos apresentaram desempenho semelhante, com valores próximos de acurácia e F1-score macro.  
+A Regressão Logística demonstrou maior equilíbrio entre as classes, sendo ligeiramente superior na identificação de alunos em risco, enquanto o Random Forest apresentou acurácia marginalmente maior, mas sem ganhos consistentes em termos de generalização.  
+Dessa forma, a Regressão Logística foi escolhida como modelo final por sua simplicidade, eficiência computacional e melhor capacidade de tratar o desbalanceamento das classes.
+
 ---
 
 ## 6️⃣ Interpretação dos Resultados
-- Principais preditores: `media_freq_b1_b3` (0.20) e `media_nota_b1_b3` (0.16).  
-- Frequência por bimestre mais relevante que provas isoladas.  
-- Trabalhos têm menor impacto.  
-- Idade e série quase irrelevantes.  
+
+Gráfico das importâncias de cada variável
+![Importância das variáveis](./figures/importancias.png)
+
+### Resumo dos resultados de importância
+
+- ✔ `media_freq_b1_b3` (0.20) foi identificado como o principal preditor.  
+- ✔ `media_nota_b1_b3` (0.16) aparece como segunda métrica mais relevante, indicando que o desempenho acumulado é mais útil do que notas pontuais para prever a situação final.  
+- ✔ Frequência individual por bimestre mostrou maior importância do que provas isoladas.  
+- ✔ Variáveis de frequência tiveram grande influência, mas isso pode refletir critérios institucionais de aprovação, não necessariamente uma relação causal com notas.  
+- ✔ Trabalhos tiveram menor impacto, possivelmente pela baixa contribuição deles na nota final.  
+- ✔ Idade e série se mostraram quase irrelevantes para o modelo.
+
+### Comparação dos modelos
+- A **Regressão Logística** apresentou métricas similares ao Random Forest, mas foi escolhida como modelo final por sua simplicidade e eficiência computacional.  
+- O **Random Forest** destacou variáveis individuais, como a nota do 3º bimestre, como fortes indicadores de risco, oferecendo insights úteis para intervenções pedagógicas precoces.  
+
+De forma geral, os resultados reforçam que o risco acadêmico está mais associado ao desempenho consolidado ao longo dos três primeiros bimestres — representado pelas médias de notas e frequência — do que a avaliações isoladas. 
+A frequência escolar se destacou como um forte preditor, mas isso se deve em grande parte ao fato de ser um critério institucional excludente para aprovação, funcionando como um “atalho” para o modelo. 
+Esse achado sugere que intervenções pedagógicas voltadas para melhorar a assiduidade desde os primeiros bimestres podem ser mais eficazes do que ações focadas apenas na recuperação de notas baixas no final do ano. 
+Por outro lado, variáveis como idade, série e trabalhos tiveram pouca relevância, indicando que seu impacto na previsão de reprovação é limitado. 
+Assim, o modelo contribui como uma ferramenta de apoio à decisão, permitindo identificar alunos em risco ainda no 3º bimestre e direcionar estratégias pedagógicas de forma antecipada e baseada em dados.
+
+Por fim, conclui-se que o modelo sugere que intervenções baseadas na assiduidade desde o segundo bimestre podem ser mais eficazes para prevenir o risco acadêmico do que focar apenas na recuperação de notas baixas no final do ano. A frequência se destaca como critério institucional excludente, funcionando como forte indicador de reprovação.
+
 
 ### Conclusão Pedagógica
-O modelo sugere que intervenções baseadas na assiduidade desde o segundo bimestre podem ser mais eficazes para prevenir o risco acadêmico do que focar apenas na recuperação de notas baixas no final do ano. A frequência se destaca como critério institucional excludente, funcionando como forte indicador de reprovação.
+O modelo sugere que para aumentar os índices de aprovação, a coordenação pedagógica deve focar primariamente em garantir que os alunos tenham assiduidade necessária. Ou seja, é crucial que os alunos frequentem o mínimo necessário de aulas durante o ano.
+Ademais, a nota consolidadada dos três primeiros bimestres também atua como um indicador forte da aprovação dos alunos, desse modo é importante investir em práticas que mantenham a constância de boas notas dos alunos afim de obterem uma boa média ao fim do terceiro bimestre.
+
 
 ---
 
 ## 7️⃣ Score de Risco e Dashboard
 O modelo final gera um score de risco acadêmico por aluno, permitindo a segmentação em **Baixo**, **Moderado** e **Alto Risco**.
+
+![Perfil de risco](./dashboards/figures/perfil_risco.png)
+![Visão Geral das previsões](./dashboards/figures/visao_geral.png)
 
 📄 **Dashboard (PDF):**  
 `dashboard/risco_academico_dashboard.pdf`
@@ -148,9 +195,13 @@ Previsao_Risco_Academico/
 │   └── 04_risk_scoring_and_outputs.ipynb
 ├── dashboard/
 │   └── Dashboard_risco_reprovacao_matematica.pdf
-│   └── screenshots/
+│   └── figures/
 │       ├── visao_geral.png
 │       └── perfil_risco.png
+├── figures/
+│   └── perfil_risco.png
+│   └── visao_geral.png
+│
 └── requirements.txt
 ```
 ---
