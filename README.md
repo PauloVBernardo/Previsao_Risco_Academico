@@ -5,9 +5,6 @@
 ![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-green)
 ![PowerBI](https://img.shields.io/badge/Power%20BI-Dashboard-yellow)
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
-[![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-Latest-orange.svg)](https://scikit-learn.org/)
-
 ---
 
 ## 📌 Visão Geral
@@ -33,19 +30,26 @@ A grande vantagem deste projeto está na antecipação do risco: a previsão é 
 7. [Score de Risco e Dashboard](#-score-de-risco-e-dashboard)  
 8. [Estrutura do Repositório](#-estrutura-do-repositório)  
 9. [Como Executar](#-como-executar)  
-10. [Resultados e Próximos Passos](#-resultados-e-próximos-passos)  
+10. [Status do Projeto e Próximos Passos](#-status-do-projeto-e-próximos-passos)  
 
 ---
 
-## 🔄 Pipeline do Projeto
+## 1 🔄 Pipeline do Projeto
 1. Geração de dados sintéticos acadêmicos  
 2. Análise exploratória e engenharia de atributos  
 3. Treinamento e avaliação de modelos de classificação  
 4. Geração de score de risco e visualização gerencial  
 
+## 📓 Notebooks principais:  
+- [01_data_generation.ipynb](./notebooks/01_data_generation.ipynb)  
+- [02_eda_and_feature_engineering.ipynb](./notebooks/02_eda_and_feature_engineering.ipynb)  
+- [03_modeling_and_evaluation.ipynb](./notebooks/03_modeling_and_evaluation.ipynb)  
+- [04_risk_scoring_and_outputs.ipynb](./notebooks/04_risk_scoring_and_outputs.ipynb)  
+
+
 ---
 
-## 2️⃣ Objetivo
+## 2 ️⃣ Objetivo
 Desenvolver um sistema de previsão de risco acadêmico capaz de identificar, ao final do 3º bimestre, alunos com maior probabilidade de:
 
 - 🟢 Aprovação  
@@ -56,7 +60,7 @@ Permitindo a implementação de ações pedagógicas direcionadas no último bim
 
 ---
 
-## 3️⃣ Dados
+## 3 ️⃣ Dados e Dicionário de Dados
 Os dados utilizados são sintéticos, gerados para fins educacionais e de demonstração do pipeline completo de Data Science aplicado ao contexto escolar.
 
 ### Estrutura de Avaliação (Matemática)
@@ -105,14 +109,14 @@ Os dados utilizados são sintéticos, gerados para fins educacionais e de demons
 
 ---
 
-## 4️⃣ Engenharia de Atributos e Desafios Técnicos
+## 4 ️⃣ Engenharia de Atributos e Desafios Técnicos
 - Criação de variáveis agregadas como `media_nota_b1_b3` e `media_freq_b1_b3`, as quais foram mais informativas que notas isoladas.  
 - Desbalanceamento de classes tratado com `class_weight='balanced'`.  
 - Ajuste de hiperparâmetros (ex.: `max_iter` na Regressão Logística) para garantir convergência.  
 
 ---
 
-## 5️⃣ Modelos e Avaliação
+## 5 ️⃣ Modelos e Avaliação
 Foram comparados os modelos de Regressão Logística e Random Forest, avaliados por meio de validação cruzada K-Fold.
 
 | Modelo              | F1-Score (Macro) | Acurácia |
@@ -125,60 +129,42 @@ A Regressão Logística demonstrou maior equilíbrio entre as classes, sendo lig
 
 A matriz de confusão da Regressão Logística mostra que alguns alunos em risco (classes 0 e 1) foram previstos como aprovados (classe 2), o que representa um erro mais crítico. Já no Random Forest, esse tipo de erro foi menos frequente, embora o modelo tenha apresentado menor equilíbrio entre as classes.
 
-![Matriz de Confusão Random Forest](./figures/matriz_confusao_random_forest.png)
-
 ![Matriz de Confusão Regressão Logística](./figures/matriz_confusao_regressao.png)
+Figura 1 - Matriz de Confusão do modelo de Regressão Logística
+
+![Matriz de Confusão Random Forest](./figures/matriz_confusao_random_forest.png)
+Figura 2 - Matriz de Confusão do modelo Random Forest
+
 Embora o Random Forest tenha cometido menos erros graves ao não classificar alunos em risco (reprovados ou em recuperação) como aprovados, a Regressão Logística foi escolhida como modelo final. Essa decisão se deve à sua simplicidade, eficiência computacional, interpretabilidade e melhor capacidade de tratar o desbalanceamento das classes.  
 
 Na prática pedagógica, é fundamental compreender os fatores que levam ao risco acadêmico, e a Regressão Logística permite maior transparência na análise das variáveis. Além disso, apesar das métricas globais serem próximas, a regressão logística mostrou-se mais eficiente e consistente, tornando-se a opção preferível para apoiar a tomada de decisão da escola.
 
 ---
-
-## 6️⃣ Interpretação dos Resultados
-
-Gráfico das importâncias de cada variável  
-![Importância das variáveis](./figures/importancias.png)
-
-- ✔ `media_freq_b1_b3` foi identificado como o principal preditor, confirmando a frequência acumulada como fator crítico.  
-- ✔ `media_nota_b1_b3` aparece como segundo indicador mais relevante, mostrando que o desempenho consolidado é mais útil do que notas pontuais.  
-- ✔ Frequências individuais por bimestre também tiveram grande influência, reforçando a importância da assiduidade.  
-- ✔ Provas e trabalhos isolados apresentaram menor impacto, enquanto idade e série mostraram pouca relevância.  
+## 6 ️⃣ Interpretação dos Resultados
 
 De forma geral, os resultados reforçam que o risco acadêmico está mais associado ao desempenho consolidado ao longo dos três primeiros bimestres — representado pelas médias de notas e frequência — do que a avaliações isoladas.  
-A frequência escolar se destacou como forte preditor, mas isso se deve em grande parte ao fato de ser um critério institucional de aprovação, funcionando como um “atalho” para o modelo. Esse achado sugere que intervenções pedagógicas voltadas para melhorar a assiduidade desde os primeiros bimestres podem ser mais eficazes do que ações focadas apenas na recuperação de notas baixas no final do ano.  
+A frequência escolar apareceu de forma consistente como variável de maior peso nos modelos, mas isso se deve em grande parte ao fato de ser um critério institucional de aprovação, funcionando como um “atalho” para a predição. Esse achado sugere que intervenções pedagógicas voltadas para melhorar a assiduidade desde os primeiros bimestres podem ser mais eficazes do que ações focadas apenas na recuperação de notas baixas no final do ano.  
 
 ### Comparação dos Modelos
 - A **Regressão Logística** apresentou métricas similares ao Random Forest, mas foi escolhida como modelo final por sua simplicidade, interpretabilidade e maior equilíbrio entre as classes.  
-- O **Random Forest** destacou variáveis individuais, como a nota do 3º bimestre, como fortes indicadores de risco, oferecendo insights úteis para intervenções pedagógicas precoces.  
+- O **Random Forest** ofereceu insights complementares, destacando variáveis pontuais como a nota do 3º bimestre e capturando padrões não lineares, o que pode ser útil para intervenções pedagógicas precoces.  
 
-Assim, cada modelo contribuiu de forma distinta: a regressão logística como ferramenta pedagógica mais transparente e equilibrada, e o Random Forest como apoio complementar para identificar padrões não lineares e variáveis pontuais de risco.
+Assim, cada modelo contribuiu de forma distinta: a regressão logística como ferramenta pedagógica mais transparente e equilibrada, e o Random Forest como apoio operacional para identificar padrões complexos e variáveis individuais de risco.  
 
-### Comparação dos modelos
-- A **Regressão Logística** apresentou métricas similares ao Random Forest, mas foi escolhida como modelo final por sua simplicidade e eficiência computacional.  
-- O **Random Forest** destacou variáveis individuais, como a nota do 3º bimestre, como fortes indicadores de risco, oferecendo insights úteis para intervenções pedagógicas precoces.  
-
-De forma geral, os resultados reforçam que o risco acadêmico está mais associado ao desempenho consolidado ao longo dos três primeiros bimestres — representado pelas médias de notas e frequência — do que a avaliações isoladas. 
-A frequência escolar se destacou como um forte preditor, mas isso se deve em grande parte ao fato de ser um critério institucional excludente para aprovação, funcionando como um “atalho” para o modelo. 
-Esse achado sugere que intervenções pedagógicas voltadas para melhorar a assiduidade desde os primeiros bimestres podem ser mais eficazes do que ações focadas apenas na recuperação de notas baixas no final do ano. 
-Por outro lado, variáveis como idade, série e trabalhos tiveram pouca relevância, indicando que seu impacto na previsão de reprovação é limitado. 
-Assim, o modelo contribui como uma ferramenta de apoio à decisão, permitindo identificar alunos em risco ainda no 3º bimestre e direcionar estratégias pedagógicas de forma antecipada e baseada em dados.
-
-Por fim, conclui-se que o modelo sugere que intervenções baseadas na assiduidade desde o segundo bimestre podem ser mais eficazes para prevenir o risco acadêmico do que focar apenas na recuperação de notas baixas no final do ano. A frequência se destaca como critério institucional excludente, funcionando como forte indicador de reprovação.
-
-
-### Conclusão Pedagógica
-O modelo sugere que para aumentar os índices de aprovação, a coordenação pedagógica deve focar primariamente em garantir que os alunos tenham assiduidade necessária. Ou seja, é crucial que os alunos frequentem o mínimo necessário de aulas durante o ano.
-Ademais, a nota consolidadada dos três primeiros bimestres também atua como um indicador forte da aprovação dos alunos, desse modo é importante investir em práticas que mantenham a constância de boas notas dos alunos afim de obterem uma boa média ao fim do terceiro bimestre.
+### Conclusão
+O modelo sugere que para aumentar os índices de aprovação, a coordenação pedagógica deve focar primariamente em garantir a assiduidade dos alunos, já que a frequência é um critério institucional determinante. Além disso, a nota consolidada dos três primeiros bimestres também atua como indicador forte de aprovação, reforçando a importância de práticas que mantenham a constância de boas notas ao longo do ano.
 
 
 ---
-## 7️⃣ Score de Risco e Dashboard
+## 7 ️⃣ Score de Risco e Dashboard
 
 O modelo final gera um score de risco acadêmico por aluno, permitindo a segmentação em **Baixo**, **Moderado** e **Alto Risco**.
 
 ![Perfil de risco](./dashboard/figures/perfil_risco.png)
+Figura 4 - Segunda página do Dashboard mostrando o perfil de risco dos alunos por idade e série para a disciplina de Matemática
 
 ![Visão Geral das previsões](./dashboard/figures/visao_geral.png)
+Figura 5 - Primeira página do Dashboard mostrando uma visão geral das previsões de risco de reprovação dos alunos na disciplina de Matemática
 
 📄 **Dashboard (PDF):**  
 `dashboard/risco_academico_dashboard.pdf`
@@ -191,7 +177,7 @@ O dashboard apoia a coordenação pedagógica na:
 - Planejamento de intervenções acadêmicas  
 ---
 
-## 📂 Estrutura do Repositório
+## 8 📂 Estrutura do Repositório
 ```text
 Previsao_Risco_Academico/
 │
@@ -223,7 +209,7 @@ Previsao_Risco_Academico/
 ```
 ---
 
-## 🚀 Como Executar
+## 9 🚀 Como Executar
 
 **Clone o repositório:**
 git clone https://github.com/PauloVBernardo/Previsao_Risco_Academico.git
@@ -234,7 +220,7 @@ pip install -r requirements.txt
 
 **Execute os notebooks na ordem numérica.**
 
-## ✅ Status do Projeto e Próximos Passos
+## 10 ✅ Status do Projeto e Próximos Passos
 Status: Finalizado. 
 
 ### Possíveis melhorias:
