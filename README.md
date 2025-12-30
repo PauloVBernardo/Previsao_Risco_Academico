@@ -46,10 +46,27 @@ A grande vantagem deste projeto está na antecipação do risco: a previsão é 
 - [03_modeling_and_evaluation.ipynb](./notebooks/03_modeling_and_evaluation.ipynb)  
 - [04_risk_scoring_and_outputs.ipynb](./notebooks/04_risk_scoring_and_outputs.ipynb)  
 
+## 🛠️ Ferramentas Utilizadas
+
+Este projeto foi desenvolvido com o uso das seguintes tecnologias:
+
+- **Python 3.10** → linguagem principal para análise e modelagem.  
+- **Pandas** → manipulação, limpeza e transformação dos dados.  
+- **NumPy** → operações matemáticas e cálculos numéricos.  
+- **Matplotlib** → geração de gráficos e visualizações básicas.  
+- **Seaborn** → visualizações estatísticas avançadas e análise exploratória.  
+- **Scikit-Learn** → construção e avaliação dos modelos de machine learning:  
+  - `LogisticRegression` → modelo linear para classificação e análise interpretável.  
+  - `RandomForestClassifier` → modelo baseado em árvores para captura de padrões não lineares.  
+  - `train_test_split` e `cross_val_score` → divisão dos dados e validação cruzada.  
+  - `StandardScaler` → normalização das variáveis numéricas.  
+  - Métricas (`accuracy_score`, `f1_score`, `classification_report`, `confusion_matrix`, `ConfusionMatrixDisplay`) → avaliação de desempenho dos modelos.  
+- **Power BI** → criação do dashboard interativo para visualização dos resultados e apoio à tomada de decisão pedagógica.  
+- **Jupyter Notebooks** → organização do pipeline e execução das etapas do projeto.  
 
 ---
 
-## 2 ️⃣ Objetivo
+## 2 🎯 Objetivo
 Desenvolver um sistema de previsão de risco acadêmico capaz de identificar, ao final do 3º bimestre, alunos com maior probabilidade de:
 
 - 🟢 Aprovação  
@@ -60,7 +77,7 @@ Permitindo a implementação de ações pedagógicas direcionadas no último bim
 
 ---
 
-## 3 ️⃣ Dados e Dicionário de Dados
+## 3 Dados e Dicionário de Dados
 Os dados utilizados são sintéticos, gerados para fins educacionais e de demonstração do pipeline completo de Data Science aplicado ao contexto escolar.
 
 ### Estrutura de Avaliação (Matemática)
@@ -109,14 +126,14 @@ Os dados utilizados são sintéticos, gerados para fins educacionais e de demons
 
 ---
 
-## 4 ️⃣ Engenharia de Atributos e Desafios Técnicos
+## 4 🔎 Engenharia de Atributos e Desafios Técnicos
 - Criação de variáveis agregadas como `media_nota_b1_b3` e `media_freq_b1_b3`, as quais foram mais informativas que notas isoladas.  
 - Desbalanceamento de classes tratado com `class_weight='balanced'`.  
 - Ajuste de hiperparâmetros (ex.: `max_iter` na Regressão Logística) para garantir convergência.  
 
 ---
 
-## 5 ️⃣ Modelos e Avaliação
+## 5 ️Modelos e Avaliação
 Foram comparados os modelos de Regressão Logística e Random Forest, avaliados por meio de validação cruzada K-Fold.
 
 | Modelo              | F1-Score (Macro) | Acurácia |
@@ -140,7 +157,7 @@ Embora o Random Forest tenha cometido menos erros graves ao não classificar alu
 Na prática pedagógica, é fundamental compreender os fatores que levam ao risco acadêmico, e a Regressão Logística permite maior transparência na análise das variáveis. Além disso, apesar das métricas globais serem próximas, a regressão logística mostrou-se mais eficiente e consistente, tornando-se a opção preferível para apoiar a tomada de decisão da escola.
 
 ---
-## 6 ️⃣ Interpretação dos Resultados
+## 6 ️Interpretação dos Resultados
 
 De forma geral, os resultados reforçam que o risco acadêmico está mais associado ao desempenho consolidado ao longo dos três primeiros bimestres — representado pelas médias de notas e frequência — do que a avaliações isoladas.  
 A frequência escolar apareceu de forma consistente como variável de maior peso nos modelos, mas isso se deve em grande parte ao fato de ser um critério institucional de aprovação, funcionando como um “atalho” para a predição. Esse achado sugere que intervenções pedagógicas voltadas para melhorar a assiduidade desde os primeiros bimestres podem ser mais eficazes do que ações focadas apenas na recuperação de notas baixas no final do ano.  
@@ -156,7 +173,7 @@ O modelo sugere que para aumentar os índices de aprovação, a coordenação pe
 
 
 ---
-## 7 ️⃣ Score de Risco e Dashboard
+## 7 ️Score de Risco e Dashboard
 
 O modelo final gera um score de risco acadêmico por aluno, permitindo a segmentação em **Baixo**, **Moderado** e **Alto Risco**.
 
@@ -209,7 +226,7 @@ Previsao_Risco_Academico/
 ```
 ---
 
-## 9 🚀 Como Executar
+## 9 Como Executar
 
 **Clone o repositório:**
 git clone https://github.com/PauloVBernardo/Previsao_Risco_Academico.git
