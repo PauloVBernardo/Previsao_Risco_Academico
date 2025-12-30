@@ -122,23 +122,35 @@ Foram comparados os modelos de Regressão Logística e Random Forest, avaliados 
 
 Os resultados mostram que ambos os modelos apresentaram desempenho semelhante, com valores próximos de acurácia e F1-score macro.  
 A Regressão Logística demonstrou maior equilíbrio entre as classes, sendo ligeiramente superior na identificação de alunos em risco, enquanto o Random Forest apresentou acurácia marginalmente maior, mas sem ganhos consistentes em termos de generalização.  
-Dessa forma, a Regressão Logística foi escolhida como modelo final por sua simplicidade, eficiência computacional e melhor capacidade de tratar o desbalanceamento das classes.
+
+A matriz de confusão da Regressão Logística mostra que alguns alunos em risco (classes 0 e 1) foram previstos como aprovados (classe 2), o que representa um erro mais crítico. Já no Random Forest, esse tipo de erro foi menos frequente, embora o modelo tenha apresentado menor equilíbrio entre as classes.
+
+![Matriz de Confusão Random Forest](./figures/matriz_confusao_random_forest.png)
+![Matriz de Confusão Regressão Logística] (./figures/matriz_confusao_regressao.png)
+Embora o Random Forest tenha cometido menos erros graves ao não classificar alunos em risco (reprovados ou em recuperação) como aprovados, a Regressão Logística foi escolhida como modelo final. Essa decisão se deve à sua simplicidade, eficiência computacional, interpretabilidade e melhor capacidade de tratar o desbalanceamento das classes.  
+
+Na prática pedagógica, é fundamental compreender os fatores que levam ao risco acadêmico, e a Regressão Logística permite maior transparência na análise das variáveis. Além disso, apesar das métricas globais serem próximas, a regressão logística mostrou-se mais eficiente e consistente, tornando-se a opção preferível para apoiar a tomada de decisão da escola.
 
 ---
 
 ## 6️⃣ Interpretação dos Resultados
 
-Gráfico das importâncias de cada variável
+Gráfico das importâncias de cada variável  
 ![Importância das variáveis](./figures/importancias.png)
 
-### Resumo dos resultados de importância
+- ✔ `media_freq_b1_b3` foi identificado como o principal preditor, confirmando a frequência acumulada como fator crítico.  
+- ✔ `media_nota_b1_b3` aparece como segundo indicador mais relevante, mostrando que o desempenho consolidado é mais útil do que notas pontuais.  
+- ✔ Frequências individuais por bimestre também tiveram grande influência, reforçando a importância da assiduidade.  
+- ✔ Provas e trabalhos isolados apresentaram menor impacto, enquanto idade e série mostraram pouca relevância.  
 
-- ✔ `media_freq_b1_b3` (0.20) foi identificado como o principal preditor.  
-- ✔ `media_nota_b1_b3` (0.16) aparece como segunda métrica mais relevante, indicando que o desempenho acumulado é mais útil do que notas pontuais para prever a situação final.  
-- ✔ Frequência individual por bimestre mostrou maior importância do que provas isoladas.  
-- ✔ Variáveis de frequência tiveram grande influência, mas isso pode refletir critérios institucionais de aprovação, não necessariamente uma relação causal com notas.  
-- ✔ Trabalhos tiveram menor impacto, possivelmente pela baixa contribuição deles na nota final.  
-- ✔ Idade e série se mostraram quase irrelevantes para o modelo.
+De forma geral, os resultados reforçam que o risco acadêmico está mais associado ao desempenho consolidado ao longo dos três primeiros bimestres — representado pelas médias de notas e frequência — do que a avaliações isoladas.  
+A frequência escolar se destacou como forte preditor, mas isso se deve em grande parte ao fato de ser um critério institucional de aprovação, funcionando como um “atalho” para o modelo. Esse achado sugere que intervenções pedagógicas voltadas para melhorar a assiduidade desde os primeiros bimestres podem ser mais eficazes do que ações focadas apenas na recuperação de notas baixas no final do ano.  
+
+### Comparação dos Modelos
+- A **Regressão Logística** apresentou métricas similares ao Random Forest, mas foi escolhida como modelo final por sua simplicidade, interpretabilidade e maior equilíbrio entre as classes.  
+- O **Random Forest** destacou variáveis individuais, como a nota do 3º bimestre, como fortes indicadores de risco, oferecendo insights úteis para intervenções pedagógicas precoces.  
+
+Assim, cada modelo contribuiu de forma distinta: a regressão logística como ferramenta pedagógica mais transparente e equilibrada, e o Random Forest como apoio complementar para identificar padrões não lineares e variáveis pontuais de risco.
 
 ### Comparação dos modelos
 - A **Regressão Logística** apresentou métricas similares ao Random Forest, mas foi escolhida como modelo final por sua simplicidade e eficiência computacional.  
@@ -159,8 +171,8 @@ Ademais, a nota consolidadada dos três primeiros bimestres também atua como um
 
 
 ---
-
 ## 7️⃣ Score de Risco e Dashboard
+
 O modelo final gera um score de risco acadêmico por aluno, permitindo a segmentação em **Baixo**, **Moderado** e **Alto Risco**.
 
 ![Perfil de risco](./dashboards/figures/perfil_risco.png)
@@ -169,11 +181,12 @@ O modelo final gera um score de risco acadêmico por aluno, permitindo a segment
 📄 **Dashboard (PDF):**  
 `dashboard/risco_academico_dashboard.pdf`
 
+Embora a Regressão Logística tenha sido escolhida como modelo final para análise pedagógica, o **Random Forest** foi utilizado na etapa de geração dos scores por oferecer maior robustez probabilística e melhor separação entre as classes. Essas características tornam o modelo mais adequado para uso operacional em dashboards e apoio à tomada de decisão pedagógica.
+
 O dashboard apoia a coordenação pedagógica na:  
 - Identificação de alunos prioritários  
 - Análise de frequência e desempenho  
 - Planejamento de intervenções acadêmicas  
-
 ---
 
 ## 📂 Estrutura do Repositório
@@ -198,6 +211,8 @@ Previsao_Risco_Academico/
 │   └── figures/
 │       ├── visao_geral.png
 │       └── perfil_risco.png
+│       ├── matriz_confusao_random_forest.png
+│       └── matriz_confusao_regressao.png
 ├── figures/
 │   └── perfil_risco.png
 │   └── visao_geral.png
@@ -221,10 +236,13 @@ pip install -r requirements.txt
 Status: Finalizado. 
 
 ### Possíveis melhorias:
-Explorar modelos adicionais (XGBoost, LightGBM).
-Investigar relação entre frequência e notas para maior valor pedagógico.
-Implementar versão interativa do dashboard em Power BI Service.
+- Explorar modelos adicionais (XGBoost, LightGBM).  
+- Investigar de forma mais aprofundada a relação entre frequência e notas, para maior valor pedagógico.  
+- Implementar versão interativa do dashboard em Power BI Service.  
 
+Essas melhorias não comprometem o status atual do projeto, mas representam oportunidades futuras de expansão e refinamento da solução.
+
+---
 ## 📬 Contato
 👤 Autor: Paulo Vitor dos Santos Bernardo
 📧 Email: pauloviti@gmail.com
