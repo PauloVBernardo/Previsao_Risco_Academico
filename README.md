@@ -126,6 +126,7 @@ A Regressão Logística demonstrou maior equilíbrio entre as classes, sendo lig
 A matriz de confusão da Regressão Logística mostra que alguns alunos em risco (classes 0 e 1) foram previstos como aprovados (classe 2), o que representa um erro mais crítico. Já no Random Forest, esse tipo de erro foi menos frequente, embora o modelo tenha apresentado menor equilíbrio entre as classes.
 
 ![Matriz de Confusão Random Forest](./figures/matriz_confusao_random_forest.png)
+
 ![Matriz de Confusão Regressão Logística] (./figures/matriz_confusao_regressao.png)
 Embora o Random Forest tenha cometido menos erros graves ao não classificar alunos em risco (reprovados ou em recuperação) como aprovados, a Regressão Logística foi escolhida como modelo final. Essa decisão se deve à sua simplicidade, eficiência computacional, interpretabilidade e melhor capacidade de tratar o desbalanceamento das classes.  
 
@@ -176,6 +177,7 @@ Ademais, a nota consolidadada dos três primeiros bimestres também atua como um
 O modelo final gera um score de risco acadêmico por aluno, permitindo a segmentação em **Baixo**, **Moderado** e **Alto Risco**.
 
 ![Perfil de risco](./dashboards/figures/perfil_risco.png)
+
 ![Visão Geral das previsões](./dashboards/figures/visao_geral.png)
 
 📄 **Dashboard (PDF):**  
