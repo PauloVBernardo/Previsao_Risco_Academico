@@ -127,7 +127,7 @@ A matriz de confusão da Regressão Logística mostra que alguns alunos em risco
 
 ![Matriz de Confusão Random Forest](./figures/matriz_confusao_random_forest.png)
 
-![Matriz de Confusão Regressão Logística] (./figures/matriz_confusao_regressao.png)
+![Matriz de Confusão Regressão Logística](./figures/matriz_confusao_regressao.png)
 Embora o Random Forest tenha cometido menos erros graves ao não classificar alunos em risco (reprovados ou em recuperação) como aprovados, a Regressão Logística foi escolhida como modelo final. Essa decisão se deve à sua simplicidade, eficiência computacional, interpretabilidade e melhor capacidade de tratar o desbalanceamento das classes.  
 
 Na prática pedagógica, é fundamental compreender os fatores que levam ao risco acadêmico, e a Regressão Logística permite maior transparência na análise das variáveis. Além disso, apesar das métricas globais serem próximas, a regressão logística mostrou-se mais eficiente e consistente, tornando-se a opção preferível para apoiar a tomada de decisão da escola.
@@ -176,9 +176,9 @@ Ademais, a nota consolidadada dos três primeiros bimestres também atua como um
 
 O modelo final gera um score de risco acadêmico por aluno, permitindo a segmentação em **Baixo**, **Moderado** e **Alto Risco**.
 
-![Perfil de risco](./dashboards/figures/perfil_risco.png)
+![Perfil de risco](./dashboard/figures/perfil_risco.png)
 
-![Visão Geral das previsões](./dashboards/figures/visao_geral.png)
+![Visão Geral das previsões](./dashboard/figures/visao_geral.png)
 
 📄 **Dashboard (PDF):**  
 `dashboard/risco_academico_dashboard.pdf`
